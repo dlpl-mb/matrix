@@ -32,8 +32,8 @@ enum defMatrix {
 
 
 
-//% color=190 weight=100 icon="\uf00a" block="DLPL-MultiBox"
-namespace DLPLmultibox {
+//% color=190 weight=100 icon="\uf00a" block="DLPL-Matrix"
+namespace DLPLmatrix {
 
     /**
      * Standardmäßig ist ein Gesamtsystem mit 8x8 auf Pin 1 vordefiniert und benutzbar (Name: Haupt)
