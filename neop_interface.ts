@@ -13,11 +13,11 @@ enum sName {
 }
 
 enum nrMatrix {
-    //% block="Matrix 1"
+    //% block="1"
     mitte,
-    //% block="Matrix 2"
+    //% block="2"
     links,
-    //% block="Matrix 3"
+    //% block="3"
     rechts
 }
 
