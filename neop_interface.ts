@@ -6,18 +6,18 @@
  */
 
 enum sName {
-    //% block="Matrix 8x8"
+    //% block="1 Matrix"
     standard,
-    //% block="MultiBox"
+    //% block="2 Matrizen"
     multibox
 }
 
 enum nrMatrix {
-    //% block="Haupt"
+    //% block="Matrix 1"
     mitte,
-    //% block="links"
+    //% block="Matrix 2"
     links,
-    //% block="rechts"
+    //% block="Matrix 3"
     rechts
 }
 
@@ -41,8 +41,8 @@ namespace DLPLmultibox {
     */
 
     //% group="Technische Definition"
-    //% sname.defl=0    
-    //% block="Vordefiniertes Gesamtsystem wählen %sname (Matrix8x8, MultiBox, ...)."
+    //% sname.defl=1    
+    //% block="Vordefiniertes Gesamtsystem wählen %sname (1 Matrix, 2 Matrizen, ...)."
     //% weight=90 
     export function definitionSystem(sname:sName) {
         set_system(sname)
