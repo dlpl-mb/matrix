@@ -1,6 +1,6 @@
 {
     "name": "matrix 1.9",
-    "version": "0.0.22",
+    "version": "0.0.23",
     "description": "Neopixel-Ansteuerung mit Matrixfunktion",
     "dependencies": {
         "core": "*",
