@@ -231,7 +231,7 @@ function set_system(sname: number) {
     if (sname == 2) { //baatest
         init_strip(0,2,0) //standard, 8x8,pin0 
         init_strip(1,2,1) //standard, 8x8,pin1 
-        init_strip(2,2,2) //standard, 5x7,pin2 
+        init_strip(2,1,2) //standard, 5x7,pin2 
         basic.showString("B")
     }
 
@@ -249,7 +249,7 @@ let arr_tech_pin = [DigitalPin.P0, DigitalPin.P1, DigitalPin.P2, DigitalPin.P3, 
 // hardwareeinstellungen end ###########################
 
 let zeichen_matrix: Array<number> = []
-let bst_muster = [31, 31, 31, 31];
+let neo_strip_anzahl: number = 1;
 let shift: number = 0
 let strip_helligkeit: number = 80;
 let pause_bst: number = 2000; //auch scrollspeed
@@ -259,14 +259,12 @@ const zch_bit_breite:number=5
 
 let zstrip: neopixel.Strip[] = []
 
-
 let neop_ges: Array<neopixel.Strip> = []
 let arr_neop_settings: Array<neop> = []
 
 let arr_zeichen: number[][];
 let bst_reihe: string = "";
 
-let neo_strip_anzahl: number = 1;
 // ende variable
 
 //beginn initialisierung ############################
