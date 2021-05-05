@@ -10,7 +10,7 @@ enum sName {
     standard,
     //% block="MultiBox"
     multibox,
-    //% block="Baa-Test"
+    //% block="BaaTest"
     baatest
 }
 
