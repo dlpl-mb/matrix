@@ -10,9 +10,9 @@ function set_punkt(x: number, y:number, color: number,snr:number=0) {
 }
 
 
-function init_alphabet() {
-    //bstreihenfolge einhalten
-    //bst_reihe = "? ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜäöüZ0123456789!?.,*+-=≠:%abcdefghijklmnopqrstuvwxyz#$&()/@;<>[]|{}~€"; //99
+function init_alphabet () {
+    // bstreihenfolge einhalten
+    //           123456789 123456789 123456789 1234567895123456789 123456789 123456789 123456789 123456789 
     bst_reihe = "? ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ0123456789!?+-.:=≠*abcdefghijklmnopqrstuvwxyzäöü"; //50+29
 
     arr_zeichen = [
@@ -21,7 +21,7 @@ function init_alphabet() {
         [14, 17, 17, 31, 17, 17, 17],
         [30, 17, 17, 30, 17, 17, 30],
         [14, 17, 16, 16, 16, 17, 14],
-        [28, 18, 17, 17, 17, 18, 28],
+        [30, 17, 17, 17, 17, 17, 30],
         [31, 16, 16, 30, 16, 16, 31],
         [31, 16, 16, 30, 16, 16, 16],
         [14, 17, 16, 23, 17, 17, 14],
@@ -59,11 +59,11 @@ function init_alphabet() {
         [14, 17, 17, 15, 1, 2, 12],
             [4, 4, 4, 4, 4, 0, 4],
             [14, 17, 1, 2, 4, 0, 4],
-        [0, 4, 4, 31, 4, 4, 0],
-        [0, 0, 0, 31, 0, 0, 0],
+        [0, 4, 4, 31, 4, 4, 0], //+
+        [0, 0, 0, 31, 0, 0, 0], //-
             [0, 0, 0, 0, 12, 12, 0],
             [0,12, 12, 0, 12, 12, 0],
-        [0, 0, 31, 0, 31, 0, 0],
+        [0, 0, 30, 0, 30, 0, 0], //=
         [1, 2, 31, 4, 31, 8, 16],
             [0, 4, 21, 14, 21, 4, 0],
     [0, 0, 14, 1, 15, 17, 15],
@@ -97,9 +97,7 @@ function init_alphabet() {
         [10, 0, 0, 17, 17, 17, 14]
     ]
 
-
 }
-
 
 input.onButtonPressed(Button.AB, function () {
     let s: number = 0;
