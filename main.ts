@@ -67,7 +67,7 @@ function showtext (snr:number,txt:string="A",color:number,scroll_flag:boolean=fa
 
 
 
-function set_punkt(x: number, y:number, color: number,snr:number=0) {
+function set_punkt(snr:number=0,x: number, y:number, color: number) {
     let mx = arr_neop_settings[snr].hwMatrix[0];
     let my = arr_neop_settings[snr].hwMatrix[1];
 
@@ -306,17 +306,14 @@ function default_strip_data() {
 function init_strip(nrMatrix: number, hwMatrix: number, pin: number) {
     arr_neop_settings[nrMatrix].pin = pin;
     arr_neop_settings[nrMatrix].hwMatrix = arr_tech_matrix[hwMatrix];
-   
 
     let pixelAnzahl = arr_tech_matrix[hwMatrix][0] * arr_tech_matrix[hwMatrix][1]
-
-    
+   
     let strip = neopixel.create(arr_tech_pin[pin], pixelAnzahl, NeoPixelMode.RGB)
     strip.setBrightness(strip_helligkeit)
     neop_ges[nrMatrix] = strip
     strip.clear()
     strip.show()
-
     neo_strip_anzahl = Math.max(nrMatrix + 1, neo_strip_anzahl)
 }
 
@@ -340,12 +337,13 @@ function set_system(sname: number) {
         // init_strip(1,1,0) //links, 7x5,pin0
         // init_strip(2,1,1) //rechts, 7x5,pin1  
 
+        init_strip(0,0,0) //links,  
         init_strip(1,1,2) //links,  
         init_strip(2,0,1) //rechts, 16x16,pin1 
 
         basic.showString("M")
         //neop_schreibe_zch(1, "ABC", neopixel.colors(NeoPixelColors.Green)) 
-        set_punkt(3,3,neopixel.colors(NeoPixelColors.Red),0)
+        set_punkt(0,3,3,neopixel.colors(NeoPixelColors.Yellow))
 basic.pause(3000)
         showtext(1, "ABC", neopixel.colors(NeoPixelColors.Green),false)
         showtext(2, "ABC", neopixel.colors(NeoPixelColors.Green),true)
