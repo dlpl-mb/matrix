@@ -78,9 +78,9 @@ function showtext (snr:number,txt:string="A",color:number,scroll_flag:boolean=fa
 }
 
 function set_punkt(snr:number=0,x: number, y:number, color: number) {
-    let mx = arr_neop_settings[snr].hwMatrix[0];
-    let my = arr_neop_settings[snr].hwMatrix[1];
-    let px = (my-y-1)*my + ((y % 2) ? mx-(x % mx)-1:(x % mx))
+    hwx = arr_neop_settings[snr].hwMatrix[0];
+    hwy = arr_neop_settings[snr].hwMatrix[1];
+    let px = (hwy-y-1)*hwy + ((y % 2) ? hwx-(x % hwx)-1:(x % hwx))
     neop_ges[snr].setPixelColor(px, color);
     neop_ges[snr].show()
 }
@@ -191,14 +191,18 @@ function loesche_matrix(snr: number=0) {
 
 // muss sein, damit der index nicht fehlläuft
 function default_strip_data() {
-    for (let s=0;s<neo_strip_anzahl;s++) {
-        arr_neop_settings.push({ pin: arr_tech_pin[0], hwMatrix: arr_tech_matrix[0] })
-    }    
+    // for (let s=0;s<neo_strip_anzahl;s++) {
+    //     arr_neop_settings.push({ pin: arr_tech_pin[s], hwMatrix: arr_tech_matrix[s] })
+    // }    
+    arr_neop_settings.push({ pin: arr_tech_pin[0], hwMatrix: arr_tech_matrix[2] })
+    arr_neop_settings.push({ pin: arr_tech_pin[1], hwMatrix: arr_tech_matrix[2] })
+    arr_neop_settings.push({ pin: arr_tech_pin[2], hwMatrix: arr_tech_matrix[1] })
 }
 
 function init_strip(nrMatrix: number, hwMatrix: number, pin: number) {
-    console.log(nrMatrix)
+    console.log("matrisxnr"+nrMatrix)
     arr_neop_settings[nrMatrix].pin = pin;
+    console.log("x matrisxnr"+nrMatrix)
     arr_neop_settings[nrMatrix].hwMatrix = arr_tech_matrix[hwMatrix];
     let pixelAnzahl = arr_tech_matrix[hwMatrix][0] * arr_tech_matrix[hwMatrix][1]
     let strip = neopixel.create(arr_tech_pin[pin], pixelAnzahl, NeoPixelMode.RGB)
@@ -219,14 +223,15 @@ function set_helligkeit(helligkeit: number, zch_pause: number) {
 }
 
 function set_system(sname: number) {
+    console.log("sname " + sname)
     if (sname == 0) {
         init_strip(0,2,1) //standard, 8x8,pin1 
         basic.showString("S")
     }
 
     if (sname == 1) { //wolf
-        init_strip(1,1,0) //links, 7x5,pin0
-        init_strip(2,1,1) //rechts, 7x5,pin1  
+        init_strip(0,1,0) //links, 7x5,pin0
+        init_strip(1,1,1) //rechts, 7x5,pin1  
         basic.showString("M")
     }
     if (sname == 2) { //baatest
@@ -271,6 +276,6 @@ let bst_reihe: string = "";
 //beginn initialisierung ############################
 init_alphabet();
 default_strip_data();
-set_system(1);
+set_system(0);
 
 // ende Initialisierung
