@@ -21,13 +21,15 @@ enum nrMatrix {
     rechts
 }
 
-enum defMatrix {
-    //% block="8x8"
+enum enumhwMatrix {
+    //% block="5x5"
     m0,
     //% block="5x7"
     m1,
+    //% block="8x8"
+    m2,
     //% block="16x16"
-    m2
+    m3
 }
 
 
@@ -53,7 +55,7 @@ namespace DLPLmatrix {
     //% block="Die Matrix %snr mit Technik %hwMatrix ist an Pin %pin angeschlossen."
 
     //% weight=80 
-    export function definitionMatrix(snr:nrMatrix,hwMatrix:defMatrix,pin:number) {
+    export function definitionMatrix(snr:nrMatrix,hwMatrix:enumhwMatrix,pin:number) {
         init_strip(snr,hwMatrix,pin)
     }
 
