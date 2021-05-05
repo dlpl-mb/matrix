@@ -186,11 +186,10 @@ function init_alphabet () {
 }
 
 input.onButtonPressed(Button.AB, function () {
-    let s: number = 0;
-    //for (let s=0;s<neo_strip_anz;s++) {
-    neop_ges[s].clear()
-    neop_ges[s].show()
-    //}
+    for (let s=0;s<neo_strip_anzahl;s++) {
+        neop_ges[s].clear()
+        neop_ges[s].show()
+    }
 })
 
 function loesche_matrix(snr: number=0) {
@@ -200,17 +199,15 @@ function loesche_matrix(snr: number=0) {
 
 // muss sein, damit der index nicht fehlläuft
 function default_strip_data() {
-    arr_neop_settings.push({ pin: arr_tech_pin[0], hwMatrix: arr_tech_matrix[0] })
-    arr_neop_settings.push({ pin: arr_tech_pin[1], hwMatrix: arr_tech_matrix[1] })
-    arr_neop_settings.push({ pin: arr_tech_pin[2], hwMatrix: arr_tech_matrix[1] })
+    for (let s=0;s<neo_strip_anzahl;s++) {
+        arr_neop_settings.push({ pin: arr_tech_pin[0], hwMatrix: arr_tech_matrix[0] })
+    }    
 }
 
 function init_strip(nrMatrix: number, hwMatrix: number, pin: number) {
     arr_neop_settings[nrMatrix].pin = pin;
     arr_neop_settings[nrMatrix].hwMatrix = arr_tech_matrix[hwMatrix];
-
     let pixelAnzahl = arr_tech_matrix[hwMatrix][0] * arr_tech_matrix[hwMatrix][1]
-   
     let strip = neopixel.create(arr_tech_pin[pin], pixelAnzahl, NeoPixelMode.RGB)
     strip.setBrightness(strip_helligkeit)
     neop_ges[nrMatrix] = strip
@@ -235,7 +232,6 @@ function set_system(sname: number) {
     }
 
     if (sname == 1) { //wolf
-        
         // init_strip(1,1,0) //links, 7x5,pin0
         // init_strip(2,1,1) //rechts, 7x5,pin1  
 
@@ -282,7 +278,7 @@ let arr_neop_settings: Array<neop> = []
 let arr_zeichen: number[][];
 let bst_reihe: string = "";
 
-let neo_strip_anzahl: number = 3;
+let neo_strip_anzahl: number = 1;
 // ende variable
 
 //beginn initialisierung ############################
