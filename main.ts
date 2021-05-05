@@ -228,6 +228,13 @@ function set_system(sname: number) {
         init_strip(2,1,1) //rechts, 7x5,pin1  
         basic.showString("M")
     }
+    if (sname == 2) { //baatest
+        init_strip(0,2,0) //standard, 8x8,pin0 
+        init_strip(1,2,1) //standard, 8x8,pin1 
+        init_strip(2,2,2) //standard, 5x7,pin2 
+        basic.showString("B")
+    }
+
 }
 
 // variable ########################################
@@ -265,7 +272,5 @@ let neo_strip_anzahl: number = 1;
 //beginn initialisierung ############################
 init_alphabet();
 default_strip_data();
-//init_strip(0, 0, 1);
-//set_system(1);
-//basic.showIcon(IconNames.Yes)
+set_system(0);
 // ende Initialisierung
