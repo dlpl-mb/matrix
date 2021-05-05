@@ -24,15 +24,32 @@ function get_ystreifen(bit:number=0,x_add:number=0,color:number) {
     })
     
 }
-    let zeichen_matrix: Array<number> = []
+function frei_matrix(zch_str:string) {
+    let ret="";
+    let zch_len = zch_str.length
+    if (zch_str.indexOf(";")>-1) {
+        const arr_split = zch_str.split(";")
+        arr_zeichen[80]=arr_split.map(wert => parseInt(wert));
+        ret=";";
+    };
+    return ret
+}    
 
+//neop_schreibe_zch(snr: number, zch_str: string = "A", color: number) 
+//neop_scrolle_zch(snr: number, zch_str: string = "A", color: number, abstand: number = 0) 
 function showtext (snr:number,txt:string="A",color:number,scroll_flag:boolean=false) {
     hwx = arr_neop_settings[snr].hwMatrix[0];
     hwy = arr_neop_settings[snr].hwMatrix[1];
 
     const center=Math.floor((hwx-zch_bit_breite)/2) 
-    neop_ges[snr].clear()
 
+    if (frei_matrix(txt)==";") {
+        txt=";";
+    }
+
+
+
+    neop_ges[snr].clear()
     for (let n = 0; n <= hwy; n++) {
         zstrip[n] = neop_ges[snr].range(n * hwx, hwx)
     }
@@ -81,7 +98,7 @@ function set_punkt(snr:number=0,x: number, y:number, color: number) {
 function init_alphabet () {
     // bstreihenfolge einhalten
     //           123456789 123456789 123456789 1234567895123456789 123456789 123456789 123456789 123456789 
-    bst_reihe = "? ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ0123456789!?+-.:=≠*abcdefghijklmnopqrstuvwxyzäöü"; //50+29
+    bst_reihe = "? ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ0123456789!?+-.:=≠,*abcdefghijklmnopqrstuvwxyzäöü;"; //50+31
 
     arr_zeichen = [
         [14, 17, 1, 2, 4, 0, 4],
@@ -133,6 +150,7 @@ function init_alphabet () {
             [0,12, 12, 0, 12, 12, 0],
         [0, 0, 30, 0, 30, 0, 0], //=
         [1, 2, 31, 4, 31, 8, 16],
+        [0, 0, 0, 0, 4, 4, 4],  //,
             [0, 4, 21, 14, 21, 4, 0],
     [0, 0, 14, 1, 15, 17, 15],
     [16, 16, 22, 25, 17, 17, 14],
@@ -162,7 +180,8 @@ function init_alphabet () {
     [0, 0, 31, 2, 4, 8, 31],
         [10, 0, 14, 1, 15, 17, 15],
         [10, 0, 0, 14, 17, 17, 14],
-        [10, 0, 0, 17, 17, 17, 14]
+        [10, 0, 0, 17, 17, 17, 14],
+        [0, 0, 0, 0, 0, 0, 0]
     ]
 
 }
@@ -175,123 +194,7 @@ input.onButtonPressed(Button.AB, function () {
     //}
 })
 
-function neop_schreibe_zch(snr: number, zch_str: string = "A", color: number) {
-    let zeichen_matrix: Array<number> = []
-
-    let mx = arr_neop_settings[snr].hwMatrix[0];
-    let my = arr_neop_settings[snr].hwMatrix[1];
-
-    let is_type = 0
-
-    let zch_len = zch_str.length
-    if (zch_len > 1) {
-        is_type = 1; //wort
-        let arr_split = zch_str.split(",")
-        if (arr_split.length > 2) {
-            is_type = 2; //array
-            zeichen_matrix = arr_split.map(wert => parseInt(wert));
-            zch_len = 1;
-        } 
-    }
-
-    for (let n = 0; n < zch_len; n++) {
-        if (is_type < 2) { //no array
-            let zch: string = zch_str[n];
-            let found = bst_reihe.indexOf(zch);
-            if (found == -1) {
-                found = 0;
-            }
-            zeichen_matrix = arr_zeichen[found]
-        }
-        neop_ges[snr].clear()
-        neop_ges[snr].show()
-        zeichen_matrix.forEach(function (zahl, zeile) {
-            for (let bit = 0; bit < mx; bit++) {
-                let z = zeile, b = bit //7- minus
-                //b=z, z=bit
-                //b=z, z=mx-1-bit
-                if (zahl & Math.pow(2, (bit + shift + mx) % mx)) {
-                    let px = z * mx + ((z % 2) ? (mx - 1 - b) : b)
-                    neop_ges[snr].setPixelColor(px, color);
-                }
-            }
-        })
-        neop_ges[snr].show()
-        if (is_type == 1) {
-            pause(strip_pause)
-        }
-    }
-}
-
-function neop_scrolle_zch(snr: number, zch_str: string = "A", color: number, abstand: number = 0) {
-    let zeichen_matrix: Array<number> = []
-
-    let mx = arr_neop_settings[snr].hwMatrix[0];
-    let my = arr_neop_settings[snr].hwMatrix[1];
-
-    let is_type = 0
-    let zch_len = zch_str.length
-    if (zch_len > 1) {
-        is_type = 1; //wort
-        let arr_split = zch_str.split(",")
-        if (arr_split.length > 2) {
-            is_type = 2; //array
-            zeichen_matrix = arr_split.map(wert => parseInt(wert));
-            zch_len = 1;
-        }
-    }
-
-    let a_bin_zeilen: number[][] = [[], []];
-    for (let n = 0; n < zch_len; n++) {
-        if (is_type < 2) { //no array
-            let zch: string = zch_str[n]
-            let found = bst_reihe.indexOf(zch);
-            if (found == -1) {
-                found = 0;
-            }
-            zeichen_matrix = arr_zeichen[found]
-        }
-
-        zeichen_matrix.forEach(function (zahl, zeile) {
-            let a_bin_zahl: Array<number> = [];
-            for (let bit = mx + abstand; bit >= 0; bit--) {
-                let sss = zahl & Math.pow(2, bit);
-                a_bin_zahl.push(sss > 0 ? 1 : 0);
-            }
-
-            if (a_bin_zeilen[zeile] == undefined) {
-                a_bin_zeilen[zeile] = a_bin_zahl;
-            } else {
-                a_bin_zeilen[zeile] = a_bin_zeilen[zeile].concat(a_bin_zahl)
-            }
-        })
-    }
-
-    let len = a_bin_zeilen[0].length;
-    for (let pos = 0; pos <= len; pos++) {
-        neop_ges[snr].clear()
-        neop_ges[snr].show()
-
-        a_bin_zeilen.forEach(function (a_dig, z) {
-            for (let b = 0; b < mx; b++) {
-                let wert = a_dig[b + pos];
-                if (wert) {
-                    let px = (z) * mx + ((z % 2) ? (b) : (mx - 1 - b))
-                    neop_ges[snr].setPixelColor(px, color);
-                }
-            }
-            neop_ges[snr].show()
-           
-        })
-        pause(strip_pause / 10)
-        
-        //neop_ges[snr].show()
-    }
-}
-
-
-
-function loesche_matrix(snr: number) {
+function loesche_matrix(snr: number=0) {
     neop_ges[snr].clear()
     neop_ges[snr].show()
 }
@@ -345,8 +248,8 @@ function set_system(sname: number) {
         //neop_schreibe_zch(1, "ABC", neopixel.colors(NeoPixelColors.Green)) 
         set_punkt(0,3,3,neopixel.colors(NeoPixelColors.Yellow))
 basic.pause(3000)
-        showtext(1, "ABC", neopixel.colors(NeoPixelColors.Green),false)
-        showtext(2, "ABC", neopixel.colors(NeoPixelColors.Green),true)
+        showtext(2, "12,3", neopixel.colors(NeoPixelColors.Green),true)
+        showtext(1, "12,3", neopixel.colors(NeoPixelColors.Green),false)
 
     }
 }
@@ -362,7 +265,7 @@ let arr_tech_matrix = [[8, 8], [5, 7], [16, 16]];
 let arr_tech_pin = [DigitalPin.P0, DigitalPin.P1, DigitalPin.P2, DigitalPin.P3, DigitalPin.P4, DigitalPin.P5, DigitalPin.P6, DigitalPin.P7, DigitalPin.P8];
 // hardwareeinstellungen end ###########################
 
-
+let zeichen_matrix: Array<number> = []
 let bst_muster = [31, 31, 31, 31];
 let shift: number = 0
 let strip_helligkeit: number = 50;

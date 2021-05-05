@@ -77,16 +77,8 @@ namespace DLPLmatrix {
     //% color.shadow="colorNumberPicker"
     //% weight=50
     export function schreibeText(snr:nrMatrix,txt: string,color:number): void {
-        neop_schreibe_zch(snr,txt,color)
-    }
-
-    //% group="Befehle"
-    //% txt.defl="ABC" abstand.defl=0
-    //% block="Scrollen auf Matrix $snr den Text $txt mit Farbe $color Buchstabenabstand (-4 bis 4) $abstand"
-    //% color.shadow="colorNumberPicker"
-    //% weight=40
-    export function scrolleText(snr:nrMatrix,txt: string,color:number,abstand:number): void {
-        neop_scrolle_zch(snr,txt,color,abstand)
+        //neop_schreibe_zch(snr,txt,color)
+        showtext (snr,txt,color,false)
     }
 
     //% group="Befehle"
