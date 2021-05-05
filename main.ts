@@ -225,7 +225,7 @@ function set_system(sname: number) {
 
     if (sname == 1) { //wolf
         init_strip(1,1,0) //links, 7x5,pin0
-        init_strip(2,1,1) //rechts, 7x5,pin1  
+        // init_strip(2,1,1) //rechts, 7x5,pin1  
         basic.showString("M")
     }
     if (sname == 2) { //baatest
@@ -271,4 +271,5 @@ let bst_reihe: string = "";
 init_alphabet();
 default_strip_data();
 set_system(0);
+
 // ende Initialisierung
