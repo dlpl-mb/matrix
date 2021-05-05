@@ -239,7 +239,7 @@ function set_system(sname: number) {
         // init_strip(1,1,0) //links, 7x5,pin0
         // init_strip(2,1,1) //rechts, 7x5,pin1  
 
-        init_strip(0,0,0) //mitte,  
+        init_strip(0,2,0) //klein,  
         init_strip(1,1,2) //links,  
         init_strip(2,0,1) //rechts, 16x16,pin1 
 
