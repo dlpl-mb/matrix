@@ -277,5 +277,5 @@ let bst_reihe: string = "";
 init_alphabet();
 default_strip_data();
 set_system(0);
-
+basic.showIcon(IconNames.Yes)
 // ende Initialisierung
