@@ -1,46 +1,67 @@
+let pause_bst:number=2000
+let pause_scroll:number=200
+function get_bst_matrix(zch: string = "A") {
+    let found = bst_reihe.indexOf(zch)
+    if (found==-1) {
+        found=0;
+    }
+    return arr_zeichen[found]
+}
+
 function scrollen () {
     for (let strip = 0; strip < hwy; strip++) {
         let sh = (strip % 2) ? -1:1
         zstrip[strip].shift(sh)
     }
 }
-function get_ystreifen(bit:number=0,x_add:number=0) {
+function get_ystreifen(bit:number=0,x_add:number=0,color:number) {
     zeichen_matrix.forEach(function (zahl, zeile) {
         if (zahl & Math.pow(2, bit)) {
             let b=bit+x_add
             let px=(zeile % 2) ? (hwx-1-b):b
-            zstrip[zeile].setPixelColor(px, neopixel.colors(NeoPixelColors.Green))
+            zstrip[zeile].setPixelColor(px, color)
         }
     })
-    gesamt.show()
+    
 }
-function showtext (txt:string="A",scroll_flag:boolean=false) {
+    let zeichen_matrix: Array<number> = []
+
+function showtext (snr:number,txt:string="A",color:number,scroll_flag:boolean=false) {
+    hwx = arr_neop_settings[snr].hwMatrix[0];
+    hwy = arr_neop_settings[snr].hwMatrix[1];
+
     const center=Math.floor((hwx-zch_bit_breite)/2) 
-    gesamt.clear()
+    neop_ges[snr].clear()
+
+    for (let n = 0; n <= hwy; n++) {
+        zstrip[n] = neop_ges[snr].range(n * hwx, hwx)
+    }
+
     for (let bst_pos = 0; bst_pos < txt.length; bst_pos++) {
         if (!scroll_flag) {
-            gesamt.clear()
+            neop_ges[snr].clear()
         }
         zeichen_matrix=get_bst_matrix(txt[bst_pos])
         let str = zch_bit_breite;
         for (let n=str;n>=0;n--) {
             if (scroll_flag) {
-                get_ystreifen(n,-n)
+                get_ystreifen(n,-n,color)
+                neop_ges[snr].show()
                 basic.pause(pause_scroll)
                 scrollen()
             } else {
-                get_ystreifen(n,center)
+                get_ystreifen(n,center,color)
+                neop_ges[snr].show()
                 basic.pause(80)
             }
         }
-        
         if (!scroll_flag) {
-            gesamt.show()
+            neop_ges[snr].show()
             basic.pause(pause_bst)
         }    
     }
     if (hwx>zch_bit_breite) {
-        gesamt.show()
+        neop_ges[snr].show()
     }
 }
 
@@ -285,15 +306,13 @@ function default_strip_data() {
 function init_strip(nrMatrix: number, hwMatrix: number, pin: number) {
     arr_neop_settings[nrMatrix].pin = pin;
     arr_neop_settings[nrMatrix].hwMatrix = arr_tech_matrix[hwMatrix];
-
-    //let pixelAnzahl = arr_tech_matrix[nrMatrix][0] * arr_tech_matrix[nrMatrix][1]
+   
 
     let pixelAnzahl = arr_tech_matrix[hwMatrix][0] * arr_tech_matrix[hwMatrix][1]
+
+    
     let strip = neopixel.create(arr_tech_pin[pin], pixelAnzahl, NeoPixelMode.RGB)
     strip.setBrightness(strip_helligkeit)
-    for (let n = 0; n <= hwy; n++) {
-        zstrip[n] = strip.range(n * hwx, hwx)
-    }
     neop_ges[nrMatrix] = strip
     strip.clear()
     strip.show()
@@ -318,14 +337,19 @@ function set_system(sname: number) {
 
     if (sname == 1) { //wolf
         
-        init_strip(1,1,2) //links, 7x5,pin0
-        init_strip(2,1,1) //rechts, 7x5,pin1  
+        // init_strip(1,1,0) //links, 7x5,pin0
+        // init_strip(2,1,1) //rechts, 7x5,pin1  
 
-        // init_strip(1,0,0) //links,  
-        // init_strip(2,0,1) //rechts, 16x16,pin6 
+        init_strip(1,1,2) //links,  
+        init_strip(2,0,1) //rechts, 16x16,pin1 
 
         basic.showString("M")
-        neop_schreibe_zch(1, "ABC", neopixel.colors(NeoPixelColors.Green)) 
+        //neop_schreibe_zch(1, "ABC", neopixel.colors(NeoPixelColors.Green)) 
+        set_punkt(3,3,neopixel.colors(NeoPixelColors.Red),0)
+basic.pause(3000)
+        showtext(1, "ABC", neopixel.colors(NeoPixelColors.Green),false)
+        showtext(2, "ABC", neopixel.colors(NeoPixelColors.Green),true)
+
     }
 }
 
@@ -358,7 +382,7 @@ let arr_neop_settings: Array<neop> = []
 let arr_zeichen: number[][];
 let bst_reihe: string = "";
 
-let neo_strip_anzahl: number = 1;
+let neo_strip_anzahl: number = 3;
 // ende variable
 
 //beginn initialisierung ############################
