@@ -197,6 +197,7 @@ function default_strip_data() {
 }
 
 function init_strip(nrMatrix: number, hwMatrix: number, pin: number) {
+    console.log(nrMatrix)
     arr_neop_settings[nrMatrix].pin = pin;
     arr_neop_settings[nrMatrix].hwMatrix = arr_tech_matrix[hwMatrix];
     let pixelAnzahl = arr_tech_matrix[hwMatrix][0] * arr_tech_matrix[hwMatrix][1]
@@ -225,7 +226,7 @@ function set_system(sname: number) {
 
     if (sname == 1) { //wolf
         init_strip(1,1,0) //links, 7x5,pin0
-        // init_strip(2,1,1) //rechts, 7x5,pin1  
+        init_strip(2,1,1) //rechts, 7x5,pin1  
         basic.showString("M")
     }
     if (sname == 2) { //baatest
@@ -249,7 +250,7 @@ let arr_tech_pin = [DigitalPin.P0, DigitalPin.P1, DigitalPin.P2, DigitalPin.P3, 
 // hardwareeinstellungen end ###########################
 
 let zeichen_matrix: Array<number> = []
-let neo_strip_anzahl: number = 1;
+let neo_strip_anzahl: number = 3;
 let shift: number = 0
 let strip_helligkeit: number = 80;
 let pause_bst: number = 2000; //auch scrollspeed
@@ -270,6 +271,6 @@ let bst_reihe: string = "";
 //beginn initialisierung ############################
 init_alphabet();
 default_strip_data();
-set_system(0);
+set_system(1);
 
 // ende Initialisierung
