@@ -1,5 +1,3 @@
-let pause_bst:number=2000
-let pause_scroll:number=200
 function get_bst_matrix(zch: string = "A") {
     let found = bst_reihe.indexOf(zch)
     if (found==-1) {
@@ -35,8 +33,6 @@ function frei_matrix(zch_str:string) {
     return ret
 }    
 
-//neop_schreibe_zch(snr: number, zch_str: string = "A", color: number) 
-//neop_scrolle_zch(snr: number, zch_str: string = "A", color: number, abstand: number = 0) 
 function showtext (snr:number,txt:string="A",color:number,scroll_flag:boolean=false) {
     hwx = arr_neop_settings[snr].hwMatrix[0];
     hwy = arr_neop_settings[snr].hwMatrix[1];
@@ -61,7 +57,7 @@ function showtext (snr:number,txt:string="A",color:number,scroll_flag:boolean=fa
             if (scroll_flag) {
                 get_ystreifen(n,-n,color)
                 neop_ges[snr].show()
-                basic.pause(pause_scroll)
+                basic.pause(pause_bst/10)
                 scrollen()
             } else {
                 get_ystreifen(n,center,color)
@@ -81,14 +77,10 @@ function showtext (snr:number,txt:string="A",color:number,scroll_flag:boolean=fa
     }
 }
 
-
-
 function set_punkt(snr:number=0,x: number, y:number, color: number) {
     let mx = arr_neop_settings[snr].hwMatrix[0];
     let my = arr_neop_settings[snr].hwMatrix[1];
-
     let px = (my-y-1)*my + ((y % 2) ? mx-(x % mx)-1:(x % mx))
-    //console.log("px="+px+" "+mx+" "+x+" "+y)
     neop_ges[snr].setPixelColor(px, color);
     neop_ges[snr].show()
 }
@@ -219,7 +211,7 @@ function init_strip(nrMatrix: number, hwMatrix: number, pin: number) {
 
 function set_helligkeit(helligkeit: number, zch_pause: number) {
     strip_helligkeit = helligkeit;
-    strip_pause = zch_pause;
+    pause_bst = zch_pause;
     for (let i = 0; i < neo_strip_anzahl; i++) {
         neop_ges[i].setBrightness(strip_helligkeit);
     }
@@ -238,14 +230,7 @@ function set_system(sname: number) {
         init_strip(0,2,0) //klein,  
         init_strip(1,1,2) //links,  
         init_strip(2,0,1) //rechts, 16x16,pin1 
-
         basic.showString("M")
-        //neop_schreibe_zch(1, "ABC", neopixel.colors(NeoPixelColors.Green)) 
-//         set_punkt(0,3,3,neopixel.colors(NeoPixelColors.Yellow))
-// basic.pause(3000)
-//         showtext(2, "12,3", neopixel.colors(NeoPixelColors.Green),true)
-//         showtext(1, "12,3", neopixel.colors(NeoPixelColors.Green),false)
-
     }
 }
 
@@ -263,8 +248,8 @@ let arr_tech_pin = [DigitalPin.P0, DigitalPin.P1, DigitalPin.P2, DigitalPin.P3, 
 let zeichen_matrix: Array<number> = []
 let bst_muster = [31, 31, 31, 31];
 let shift: number = 0
-let strip_helligkeit: number = 50;
-let strip_pause: number = 2000; //auch scrollspeed
+let strip_helligkeit: number = 80;
+let pause_bst: number = 2000; //auch scrollspeed
 let hwx:number=8
 let hwy:number=8
 const zch_bit_breite:number=5
@@ -288,5 +273,3 @@ default_strip_data();
 set_system(1);
 //basic.showIcon(IconNames.Yes)
 // ende Initialisierung
-// test();
-// zerlege()

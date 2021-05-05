@@ -6,19 +6,21 @@
  */
 
 enum sName {
-    //% block="1 Matrix"
+    //% block="Standard"
     standard,
-    //% block="2 Matrizen"
+    //% block="MultiBox"
     multibox
 }
 
 enum nrMatrix {
     //% block="1"
-    mitte,
+    zentral,
     //% block="2"
     links,
     //% block="3"
-    rechts
+    rechts,
+    //% block="4"
+    extend
 }
 
 enum HWMatrix {
@@ -42,13 +44,6 @@ namespace DLPLmatrix {
      * Es können aber auch weitere Systeme definiert verwendet werden (Namen: links und rechts)
     */
 
-    //% group="Technische Definition"
-    //% sname.defl=1    
-    //% block="Vordefiniertes Gesamtsystem wählen %sname (1 Matrix, 2 Matrizen, ...)."
-    //% weight=90 
-    export function definitionSystem(sname:sName) {
-        set_system(sname)
-    }
 
     //% group="Technische Definition"
     //% pin.defl=1    
@@ -95,4 +90,14 @@ namespace DLPLmatrix {
     export function loescheMatrix(snr:nrMatrix) {
         loesche_matrix(snr)
     }
+
+    //% group="Erweiterung"
+    //% sname.defl=1    
+    //% block="Vordefiniertes Gesamtsystem wählen %sname (Standard, MultiBox, ...)."
+    //% weight=20 
+    export function definitionSystem(sname:sName) {
+        set_system(sname)
+    }
+
+
 }
