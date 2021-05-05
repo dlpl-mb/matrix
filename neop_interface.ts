@@ -98,6 +98,4 @@ namespace DLPLmatrix {
     export function definitionSystem(sname:sName) {
         set_system(sname)
     }
-
-
 }

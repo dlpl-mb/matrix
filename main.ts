@@ -219,17 +219,13 @@ function set_helligkeit(helligkeit: number, zch_pause: number) {
 
 function set_system(sname: number) {
     if (sname == 0) {
-        init_strip(0,0,1) //Haupt, 8x8,pin1 
+        init_strip(0,2,1) //standard, 8x8,pin1 
         basic.showString("S")
     }
 
     if (sname == 1) { //wolf
-        // init_strip(1,1,0) //links, 7x5,pin0
-        // init_strip(2,1,1) //rechts, 7x5,pin1  
-
-        init_strip(0,2,0) //klein,  
-        init_strip(1,1,2) //links,  
-        init_strip(2,0,1) //rechts, 16x16,pin1 
+        init_strip(1,1,0) //links, 7x5,pin0
+        init_strip(2,1,1) //rechts, 7x5,pin1  
         basic.showString("M")
     }
 }
@@ -270,6 +266,6 @@ let neo_strip_anzahl: number = 1;
 init_alphabet();
 default_strip_data();
 //init_strip(0, 0, 1);
-set_system(1);
+//set_system(1);
 //basic.showIcon(IconNames.Yes)
 // ende Initialisierung
