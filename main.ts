@@ -46,9 +46,6 @@ function showtext (snr:number,txt:string="A",color:number,scroll_flag:boolean=fa
     if (frei_matrix(txt)==";") {
         txt=";";
     }
-
-
-
     neop_ges[snr].clear()
     for (let n = 0; n <= hwy; n++) {
         zstrip[n] = neop_ges[snr].range(n * hwx, hwx)
@@ -74,7 +71,9 @@ function showtext (snr:number,txt:string="A",color:number,scroll_flag:boolean=fa
         }
         if (!scroll_flag) {
             neop_ges[snr].show()
-            basic.pause(pause_bst)
+            if (txt.length>1) {
+                basic.pause(pause_bst)
+            }
         }    
     }
     if (hwx>zch_bit_breite) {
@@ -240,16 +239,16 @@ function set_system(sname: number) {
         // init_strip(1,1,0) //links, 7x5,pin0
         // init_strip(2,1,1) //rechts, 7x5,pin1  
 
-        init_strip(0,0,0) //links,  
+        init_strip(0,0,0) //mitte,  
         init_strip(1,1,2) //links,  
         init_strip(2,0,1) //rechts, 16x16,pin1 
 
         basic.showString("M")
         //neop_schreibe_zch(1, "ABC", neopixel.colors(NeoPixelColors.Green)) 
-        set_punkt(0,3,3,neopixel.colors(NeoPixelColors.Yellow))
-basic.pause(3000)
-        showtext(2, "12,3", neopixel.colors(NeoPixelColors.Green),true)
-        showtext(1, "12,3", neopixel.colors(NeoPixelColors.Green),false)
+//         set_punkt(0,3,3,neopixel.colors(NeoPixelColors.Yellow))
+// basic.pause(3000)
+//         showtext(2, "12,3", neopixel.colors(NeoPixelColors.Green),true)
+//         showtext(1, "12,3", neopixel.colors(NeoPixelColors.Green),false)
 
     }
 }
@@ -261,7 +260,7 @@ interface neop {
 }
 
 // hardwareeinstellungen ########################### 3 Matriken
-let arr_tech_matrix = [[8, 8], [5, 7], [16, 16]];
+let arr_tech_matrix = [[5, 5],[5, 7], [8, 8], [16, 16]];
 let arr_tech_pin = [DigitalPin.P0, DigitalPin.P1, DigitalPin.P2, DigitalPin.P3, DigitalPin.P4, DigitalPin.P5, DigitalPin.P6, DigitalPin.P7, DigitalPin.P8];
 // hardwareeinstellungen end ###########################
 

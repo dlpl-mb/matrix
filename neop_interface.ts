@@ -53,7 +53,6 @@ namespace DLPLmatrix {
     //% group="Technische Definition"
     //% pin.defl=1    
     //% block="Die Matrix %snr mit Technik %hwMatrix ist an Pin %pin angeschlossen."
-
     //% weight=80 
     export function definitionMatrix(snr:nrMatrix,hwMatrix:enumhwMatrix,pin:number) {
         init_strip(snr,hwMatrix,pin)
@@ -73,12 +72,11 @@ namespace DLPLmatrix {
 
     //% group="Befehle"
     //% txt.defl="ABC"
-    //% block="Schreibe auf Matrix $snr den Text $txt mit Farbe $color"
+    //% block="Schreibe auf Matrix $snr den Text $txt mit Farbe $color mit Scrolling $scroll"
     //% color.shadow="colorNumberPicker"
     //% weight=50
-    export function schreibeText(snr:nrMatrix,txt: string,color:number): void {
-        //neop_schreibe_zch(snr,txt,color)
-        showtext (snr,txt,color,false)
+    export function schreibeText(snr:nrMatrix,txt: string,color:number,scroll:boolean): void {
+        showtext (snr,txt,color,scroll)
     }
 
     //% group="Befehle"
